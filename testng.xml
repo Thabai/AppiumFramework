@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd"><suite name="All Test Suite"><test verbose="2" preserve-order="true" name="C:/Users/thaba/Desktop/AppiumFramework-main">
+    <classes>
+        <class name="Appium.eCommerceE2ETest">
+            <methods>
+                <include name="eCommerceTest3"/>
+            </methods>
+    </class>
+        <class name="Appium.eCommerceToast">
+            <methods>
+            <include name="fillFormNameErrorValidation"/>
+            <include name="fillFormPositiveFlow"/>
+            </methods>
+        </class>
+</classes>
+</test>
+</suite>
