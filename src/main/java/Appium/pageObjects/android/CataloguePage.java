@@ -33,7 +33,7 @@ public class CataloguePage extends AndroidActions {
 
     public CartPage checkProductsInCart() throws InterruptedException {
         checkCart.click();
-        waitForElementToAppear(checkIfOnCartPage);
+        waitForElementToAppear(checkIfOnCartPage, driver);
         return new CartPage(driver);
     }
 

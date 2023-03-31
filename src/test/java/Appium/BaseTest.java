@@ -1,13 +1,13 @@
 package Appium;
 
 import Appium.pageObjects.android.FormPage;
+import Appium.utils.AppiumUtils;
 import io.appium.java_client.android.AndroidDriver;
 
 import io.appium.java_client.android.options.UiAutomator2Options;
 
 import io.appium.java_client.service.local.AppiumDriverLocalService;
 import io.appium.java_client.service.local.AppiumServiceBuilder;
-import io.appium.java_client.service.local.flags.GeneralServerFlag;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 
@@ -15,10 +15,9 @@ import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.time.Duration;
-import java.util.concurrent.TimeUnit;
 
 
-public class BaseTest {
+public class BaseTest extends AppiumUtils {
 
         public AndroidDriver driver;
         public FormPage formPage;
