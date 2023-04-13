@@ -1,12 +1,16 @@
 package Appium.pageObjects.android;
 
 import Appium.utils.AndroidActions;
+import android.annotation.SuppressLint;
 import io.appium.java_client.android.Activity;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.pagefactory.AndroidFindBy;
 import io.appium.java_client.pagefactory.AppiumFieldDecorator;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.time.Duration;
 
 public class FormPage extends AndroidActions {
 
@@ -55,8 +59,9 @@ public class FormPage extends AndroidActions {
         return new CataloguePage(driver);
     }
 
+    @SuppressLint("NewApi")
     public String checkToastMessage() {
-
+        new WebDriverWait(driver, Duration.ofSeconds(5));
         return toastCheck.getAttribute("name");
     }
 

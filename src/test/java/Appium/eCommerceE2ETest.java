@@ -2,7 +2,7 @@ package Appium;
 
 import Appium.pageObjects.android.CartPage;
 import Appium.pageObjects.android.CataloguePage;
-
+import TestUtils.BaseTest;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
@@ -25,10 +25,11 @@ public class eCommerceE2ETest extends BaseTest {
         //json hashmap
         @DataProvider
         public Object[][] getData() throws IOException {
-//            List<HashMap<String, String>> data = getJsonData(System.getProperty("C:" + "user.dir", "//src//test//java//TestData//eCommerce.json"));
-            List<HashMap<String, String>> data = getJsonData("C://Users//thaba//Desktop//AppiumFramework//src//test//java//TestData//eCommerce.json");
+            List<HashMap<String, String>> data = getJsonData(System.getProperty( "user.dir") + "//src//test//java//TestData//eCommerce.json");
             return new Object[][] { {data.get(0)}, {data.get(1)} };
         }
+
+
 
         @Test(dataProvider = "getData")
         public void E2ETest(HashMap<String,String> input) throws InterruptedException {
@@ -40,7 +41,6 @@ public class eCommerceE2ETest extends BaseTest {
 
             cartPage.acceptTC();
             cartPage.submitOrder();
-
         }
 
 
@@ -50,7 +50,7 @@ public class eCommerceE2ETest extends BaseTest {
             return cataloguePage.checkProductsInCart();
         }
 
-        private CataloguePage addCustomerInfo(String name, String gender, String country) {
+        private CataloguePage addCustomerInfo(String name, String gender, String country) throws InterruptedException {
             formPage.setNameField(name);
             formPage.setGender(gender);
             formPage.setCountryName(country);
