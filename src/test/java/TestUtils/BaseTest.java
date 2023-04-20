@@ -1,6 +1,6 @@
 package TestUtils;
 
-import Appium.pageObjects.android.FormPage;
+import Appium.pageObjectsAndroid.FormPage;
 import Appium.utils.AppiumUtils;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.options.UiAutomator2Options;
@@ -16,40 +16,45 @@ import java.util.Properties;
 
 public class BaseTest extends AppiumUtils {
 
-        public AndroidDriver driver;
-        public FormPage formPage;
-        public AppiumDriverLocalService service;
+    public AppiumDriverLocalService service;
+    public AndroidDriver driver;
+    public FormPage formPage;
 
-        @BeforeClass
-        public void ConfigureAppium() throws IOException {
 
-            Properties prop = new Properties();
-            FileInputStream fis = new FileInputStream(System.getProperty("user.dir") + "//src//main//java//Resources//data.properties");
-            prop.load(fis);
+    @BeforeClass(alwaysRun = true)
+    public void ConfigureAppium() throws IOException{
 
-            String nodeModulePath = prop.getProperty("nodeModulePath");
-            System.out.println(nodeModulePath);
-            String ipAddress = prop.getProperty("ipAddress");
-            String port = prop.getProperty("port");
+        Properties prop = new Properties();
+        FileInputStream fis = new FileInputStream(System.getProperty("user.dir") + "//src//main//java//Resources//data.properties");
+        //sent in maven params if not use prop
+        String ipAddress = System.getProperty("ipAddress")!=null ? System.getProperty("ipAddress") : prop.getProperty("ipAddress");
+        prop.load(fis);
 
-            service = startAppiumServer(nodeModulePath, ipAddress, Integer.parseInt(port));
+        String nodeModulePath = prop.getProperty("nodeModulePath");
+        String port = prop.getProperty("port");
 
-            UiAutomator2Options options = new UiAutomator2Options();
-            options.setDeviceName(prop.getProperty("androidDeviceName"));
+        service = startAppiumServer(nodeModulePath,ipAddress, Integer.parseInt(port));
 
-//            options.setApp(System.getProperty("user.dir") + "//src//test//java//Resources//chromedriver_win32(1)//chromedriver.exe");
+        UiAutomator2Options options = new UiAutomator2Options();
+        options.setDeviceName(prop.getProperty("androidDeviceName"));
+
+        options.setChromedriverExecutable(System.getProperty("user.dir") + "//src//test//java//Resources//chromedriver_win32(1)//chromedriver.exe");
 //            options.setApp(System.getProperty("user.dir") + "//src//test//java//Resources//ApiDemos-debug.apk");
 
-            options.setApp(System.getProperty("user.dir") + "//src//test//java//Resources//General-Store.apk");
+        options.setApp(System.getProperty("user.dir") + "//src//test//java//Resources//General-Store.apk");
+//            options.setAppWaitPackage("com.androidsample.generalstore");
+//            options.setAppWaitActivity("com.androidsample.generalstore.SplashActivity");
 
-            driver = new AndroidDriver(service.getUrl(), options);
-            driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
-            formPage = new FormPage(driver);
-        }
+        driver = new AndroidDriver(service.getUrl(), options);
 
-        @AfterClass
-        public void TearDown(){
-            driver.quit();
-            service.stop();
-        }
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
+
+        formPage = new FormPage(driver);
     }
+
+    @AfterClass(alwaysRun = true)
+    public void TearDown() {
+        driver.quit();
+        service.stop();
+    }
+}

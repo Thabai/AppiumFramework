@@ -1,4 +1,4 @@
-package Appium.pageObjects.android;
+package Appium.pageObjectsAndroid;
 
 import Appium.utils.AndroidActions;
 import io.appium.java_client.android.AndroidDriver;

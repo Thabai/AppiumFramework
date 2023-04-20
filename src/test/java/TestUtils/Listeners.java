@@ -35,8 +35,8 @@ public class Listeners extends AppiumUtils implements ITestListener{
         try {
             driver = (AppiumDriver) result.getTestClass().getRealClass().getField("driver")
                     .get(result.getInstance());
-        } catch (Exception e) {
-            throw new RuntimeException(e);
+        } catch (Exception e1) {
+            throw new RuntimeException(e1);
         }
 
         //add to report with test title

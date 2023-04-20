@@ -24,12 +24,14 @@ import java.util.List;
 public abstract class AppiumUtils {
 
     public AppiumDriverLocalService service;
-    public AppiumDriverLocalService startAppiumServer(String nodeModulePath, String ipAddress, int port){
-        service = new AppiumServiceBuilder()
-                .withAppiumJS(new File(nodeModulePath)).withIPAddress(ipAddress).usingPort(port).build();
-        service.start();
+    public AppiumDriverLocalService startAppiumServer(String nodeModulePath, String ipAddress, int port) {
+            service = new AppiumServiceBuilder()
+                    .withAppiumJS(new File(nodeModulePath)).withIPAddress(ipAddress).usingPort(port).build();
+            service.start();
         return service;
     }
+
+
 
     public Double getFormattedAmount(String amount){
         Double amountToNumber = Double.parseDouble(amount.substring(1));
@@ -44,7 +46,7 @@ public abstract class AppiumUtils {
         String jsonContent = FileUtils.readFileToString(new File(jsonFilePath), StandardCharsets.UTF_8 );
         ObjectMapper mapper = new ObjectMapper();
         List<HashMap<String, String>> data = mapper.readValue(jsonContent,
-                new TypeReference<>() {
+                new TypeReference<List<HashMap<String, String>>>(){
                 });
         return data;
     }

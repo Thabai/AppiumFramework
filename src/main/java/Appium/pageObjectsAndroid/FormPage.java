@@ -1,16 +1,12 @@
-package Appium.pageObjects.android;
+package Appium.pageObjectsAndroid;
 
 import Appium.utils.AndroidActions;
-import android.annotation.SuppressLint;
 import io.appium.java_client.android.Activity;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.pagefactory.AndroidFindBy;
 import io.appium.java_client.pagefactory.AppiumFieldDecorator;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.WebDriverWait;
-
-import java.time.Duration;
 
 public class FormPage extends AndroidActions {
 
@@ -19,6 +15,7 @@ public class FormPage extends AndroidActions {
         super(driver);
         this.driver = driver;
         PageFactory.initElements(new AppiumFieldDecorator(driver), this);
+
     }
     @AndroidFindBy(id="com.androidsample.generalstore:id/nameField")
     private WebElement nameField;
@@ -59,14 +56,13 @@ public class FormPage extends AndroidActions {
         return new CataloguePage(driver);
     }
 
-    @SuppressLint("NewApi")
     public String checkToastMessage() {
-        new WebDriverWait(driver, Duration.ofSeconds(5));
         return toastCheck.getAttribute("name");
     }
 
-    public void setActivity()
-    {
+    public void setActivity() {
+        //adb shell dumpsys window | find "mCurrentFocus"
+        //com.androidsample.generalstore/com.androidsample.generalstore.MainActivity
         Activity activity = new Activity("com.androidsample.generalstore", "com.androidsample.generalstore.SplashActivity");
         driver.startActivity(activity);
     }
